@@ -1,6 +1,6 @@
-[gd_resource type="VisualShader" load_steps=26 format=3 uid="uid://ba5d5a00abtol"]
+[gd_resource type="VisualShader" load_steps=25 format=3 uid="uid://ba5d5a00abtol"]
 
-[ext_resource type="Script" path="res://Scripts/CustomNodes/PerlinNoise3D.gd" id="1_1r1m7"]
+[ext_resource type="Script" path="res://Scripts/CustomNodes/PerlinNoise3DNode.gd" id="1_1r1m7"]
 
 [sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_7ghpb"]
 parameter_name = "Edge_Color"
@@ -26,61 +26,6 @@ parameter_name = "Dissolve_Thickness"
 hint = 1
 default_value_enabled = true
 default_value = 0.05
-
-[sub_resource type="VisualShaderNodeGlobalExpression" id="VisualShaderNodeGlobalExpression_jw2f0"]
-size = Vector2(480, 420)
-expression = "float noiseRandomValue(vec2 uv)
-{
-	return fract(sin(dot(uv, vec2(12.9898f, 78.233f))) * 43758.5453f);
-}
-
-float noiseInterpolate(float a, float b, float t)
-{
-	return (1.0f - t) * a + (t * b);
-}
-
-float valueNoise(vec2 uv)
-{
-	vec2 i = floor(uv);
-	vec2 f = fract(uv);
-	f = f * f * (3.0f - 2.0f * f);
-	
-	uv = abs(fract(uv) - 0.5f);
-	vec2 c0 = i + vec2(0.0f, 0.0);
-	vec2 c1 = i + vec2(1.0f, 0.0f);
-	vec2 c2 = i + vec2(0.0f, 1.0f);
-	vec2 c3 = i + vec2(1.0f, 1.0f);
-	
-	float r0 = noiseRandomValue(c0);
-	float r1 = noiseRandomValue(c1);
-	float r2 = noiseRandomValue(c2);
-	float r3 = noiseRandomValue(c3);
-	
-	float bottomOfGrid = noiseInterpolate(r0, r1, f.x);
-	float topOfGrid = noiseInterpolate(r2, r3, f.x);
-	float t = noiseInterpolate(bottomOfGrid, topOfGrid, f.y);
-	return t;
-}
-
-float simpleNoise(vec2 uv, float scale)
-{
-	float t = 0.0f;
-	
-	float freq = pow(2.0f, float(0));
-	float amp = pow(0.5f, float(3-0));
-	t += valueNoise(vec2(uv.x * scale/freq, uv.y * scale/freq))*amp;
-	
-	freq = pow(2.0f, float(1));
-	amp = pow(0.5f, float(3-1));
-	t += valueNoise(vec2(uv.x * scale/freq, uv.y * scale/freq))*amp;
-	
-	freq = pow(2.0f, float(2));
-	amp = pow(0.5f, float(3-2));
-	t += valueNoise(vec2(uv.x * scale/freq, uv.y * scale/freq))*amp;
-	
-	return t;
-}
-"
 
 [sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_vkx03"]
 operator = 2
@@ -246,59 +191,6 @@ uniform vec4 Edge_Color : source_color = vec4(0.000000, 0.000000, 1.000000, 1.00
 			return 2.2 * n_xyz;
 		}
 	
-// GlobalExpression:0
-	float noiseRandomValue(vec2 uv)
-	{
-		return fract(sin(dot(uv, vec2(12.9898f, 78.233f))) * 43758.5453f);
-	}
-	
-	float noiseInterpolate(float a, float b, float t)
-	{
-		return (1.0f - t) * a + (t * b);
-	}
-	
-	float valueNoise(vec2 uv)
-	{
-		vec2 i = floor(uv);
-		vec2 f = fract(uv);
-		f = f * f * (3.0f - 2.0f * f);
-		
-		uv = abs(fract(uv) - 0.5f);
-		vec2 c0 = i + vec2(0.0f, 0.0);
-		vec2 c1 = i + vec2(1.0f, 0.0f);
-		vec2 c2 = i + vec2(0.0f, 1.0f);
-		vec2 c3 = i + vec2(1.0f, 1.0f);
-		
-		float r0 = noiseRandomValue(c0);
-		float r1 = noiseRandomValue(c1);
-		float r2 = noiseRandomValue(c2);
-		float r3 = noiseRandomValue(c3);
-		
-		float bottomOfGrid = noiseInterpolate(r0, r1, f.x);
-		float topOfGrid = noiseInterpolate(r2, r3, f.x);
-		float t = noiseInterpolate(bottomOfGrid, topOfGrid, f.y);
-		return t;
-	}
-	
-	float simpleNoise(vec2 uv, float scale)
-	{
-		float t = 0.0f;
-		
-		float freq = pow(2.0f, float(0));
-		float amp = pow(0.5f, float(3-0));
-		t += valueNoise(vec2(uv.x * scale/freq, uv.y * scale/freq))*amp;
-		
-		freq = pow(2.0f, float(1));
-		amp = pow(0.5f, float(3-1));
-		t += valueNoise(vec2(uv.x * scale/freq, uv.y * scale/freq))*amp;
-		
-		freq = pow(2.0f, float(2));
-		amp = pow(0.5f, float(3-2));
-		t += valueNoise(vec2(uv.x * scale/freq, uv.y * scale/freq))*amp;
-		
-		return t;
-	}
-	
 
 void vertex() {
 // Input:2
@@ -330,7 +222,6 @@ void fragment() {
 
 // Input:21
 	vec4 n_out21p0 = COLOR;
-	float n_out21p1 = n_out21p0.r;
 	float n_out21p2 = n_out21p0.g;
 
 
@@ -414,7 +305,6 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-1302.58, 210.059)
 nodes/vertex/2/node = SubResource("VisualShaderNodeInput_f7ses")
 nodes/vertex/2/position = Vector2(-300, 240)
 nodes/vertex/3/node = SubResource("VisualShaderNodeTransformVecMult_citl8")
@@ -422,63 +312,6 @@ nodes/vertex/3/position = Vector2(2.74011, 333.686)
 nodes/vertex/4/node = SubResource("VisualShaderNodeInput_klaiq")
 nodes/vertex/4/position = Vector2(-380, 400)
 nodes/vertex/connections = PackedInt32Array(2, 0, 3, 0, 4, 0, 3, 1, 3, 0, 0, 6)
-nodes/fragment/2/node = SubResource("VisualShaderNodeGlobalExpression_jw2f0")
-nodes/fragment/2/position = Vector2(-600, -200)
-nodes/fragment/2/size = Vector2(480, 420)
-nodes/fragment/2/input_ports = ""
-nodes/fragment/2/output_ports = ""
-nodes/fragment/2/expression = "float noiseRandomValue(vec2 uv)
-{
-	return fract(sin(dot(uv, vec2(12.9898f, 78.233f))) * 43758.5453f);
-}
-
-float noiseInterpolate(float a, float b, float t)
-{
-	return (1.0f - t) * a + (t * b);
-}
-
-float valueNoise(vec2 uv)
-{
-	vec2 i = floor(uv);
-	vec2 f = fract(uv);
-	f = f * f * (3.0f - 2.0f * f);
-	
-	uv = abs(fract(uv) - 0.5f);
-	vec2 c0 = i + vec2(0.0f, 0.0);
-	vec2 c1 = i + vec2(1.0f, 0.0f);
-	vec2 c2 = i + vec2(0.0f, 1.0f);
-	vec2 c3 = i + vec2(1.0f, 1.0f);
-	
-	float r0 = noiseRandomValue(c0);
-	float r1 = noiseRandomValue(c1);
-	float r2 = noiseRandomValue(c2);
-	float r3 = noiseRandomValue(c3);
-	
-	float bottomOfGrid = noiseInterpolate(r0, r1, f.x);
-	float topOfGrid = noiseInterpolate(r2, r3, f.x);
-	float t = noiseInterpolate(bottomOfGrid, topOfGrid, f.y);
-	return t;
-}
-
-float simpleNoise(vec2 uv, float scale)
-{
-	float t = 0.0f;
-	
-	float freq = pow(2.0f, float(0));
-	float amp = pow(0.5f, float(3-0));
-	t += valueNoise(vec2(uv.x * scale/freq, uv.y * scale/freq))*amp;
-	
-	freq = pow(2.0f, float(1));
-	amp = pow(0.5f, float(3-1));
-	t += valueNoise(vec2(uv.x * scale/freq, uv.y * scale/freq))*amp;
-	
-	freq = pow(2.0f, float(2));
-	amp = pow(0.5f, float(3-2));
-	t += valueNoise(vec2(uv.x * scale/freq, uv.y * scale/freq))*amp;
-	
-	return t;
-}
-"
 nodes/fragment/5/node = SubResource("VisualShaderNodeFloatParameter_njvwl")
 nodes/fragment/5/position = Vector2(-2320, 980)
 nodes/fragment/6/node = SubResource("VisualShaderNodeStep_c33eu")
@@ -508,7 +341,7 @@ nodes/fragment/21/position = Vector2(-2820, 640)
 nodes/fragment/23/node = SubResource("VisualShaderNodeCustom_htf0a")
 nodes/fragment/23/position = Vector2(-1820, 380)
 nodes/fragment/25/node = SubResource("VisualShaderNodeFloatConstant_ey2cw")
-nodes/fragment/25/position = Vector2(-2220, 420)
+nodes/fragment/25/position = Vector2(-2180, 580)
 nodes/fragment/26/node = SubResource("VisualShaderNodeFloatOp_m2wjw")
 nodes/fragment/26/position = Vector2(-1520, 380)
 nodes/fragment/27/node = SubResource("VisualShaderNodeFloatParameter_1ukti")

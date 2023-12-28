@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://bgajkufo5nxjf"]
+
+[ext_resource type="Shader" uid="uid://d8qy4jn630ck" path="res://Shaders/Hologram.tres" id="1_umngf"]
+[ext_resource type="Texture2D" uid="uid://b4351ghnoea5k" path="res://Textures/HologramLines.png" id="2_d66gy"]
+[ext_resource type="Script" path="res://Scripts/Dissolve.gd" id="2_r042i"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cn7ys"]
+render_priority = 0
+shader = ExtResource("1_umngf")
+shader_parameter/Scanline_Color = Color(0, 1.775, 1.775, 0.018)
+shader_parameter/Scanline_Scroll_Speed = 1.5
+shader_parameter/Scanline_Scale = 100.0
+shader_parameter/Fresnel_Power = 5.0
+shader_parameter/ColorParameter = Color(0, 0, 5, 1)
+shader_parameter/Texture2DParameter = ExtResource("2_d66gy")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="."]
+material = SubResource("ShaderMaterial_cn7ys")
+script = ExtResource("2_r042i")
