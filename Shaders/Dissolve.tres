@@ -89,7 +89,7 @@ input_name = "vertex"
 
 [resource]
 code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
+render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_lambert, specular_schlick_ggx;
 
 uniform vec4 Base_Color : source_color = vec4(1.000000, 1.000000, 1.000000, 1.000000);
 uniform float Dissolve_Amount = 0.5;
@@ -305,6 +305,7 @@ void fragment() {
 
 }
 "
+modes/cull = 2
 nodes/vertex/2/node = SubResource("VisualShaderNodeInput_f7ses")
 nodes/vertex/2/position = Vector2(-300, 240)
 nodes/vertex/3/node = SubResource("VisualShaderNodeTransformVecMult_citl8")

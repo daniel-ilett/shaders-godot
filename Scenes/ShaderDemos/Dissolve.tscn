@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://feii01ocsqh5"]
+[gd_scene load_steps=5 format=3 uid="uid://feii01ocsqh5"]
 
 [ext_resource type="Shader" uid="uid://ba5d5a00abtol" path="res://Shaders/Dissolve.tres" id="1_dqir1"]
 [ext_resource type="Script" path="res://Scripts/Dissolve.gd" id="2_jnvlp"]
@@ -14,8 +14,11 @@ shader_parameter/Noise_Height_Level = -0.57
 shader_parameter/Dissolve_Thickness = 0.2
 shader_parameter/Edge_Color = Color(23.077, 0.168, 30.769, 1)
 
+[sub_resource type="SphereMesh" id="SphereMesh_v2nbj"]
+
 [node name="Node3D" type="Node3D"]
 
-[node name="CSGSphere3D" type="CSGSphere3D" parent="."]
-material = SubResource("ShaderMaterial_q2hcj")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_q2hcj")
+mesh = SubResource("SphereMesh_v2nbj")
 script = ExtResource("2_jnvlp")

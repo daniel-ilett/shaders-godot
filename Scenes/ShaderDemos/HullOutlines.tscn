@@ -1,0 +1,23 @@
+[gd_scene load_steps=6 format=3 uid="uid://bc5sluvi4yi7o"]
+
+[ext_resource type="Shader" uid="uid://dhtbcld73mfmk" path="res://Shaders/HullOutlines.tres" id="1_vp721"]
+[ext_resource type="Script" path="res://Scripts/Dissolve.gd" id="2_xgdfq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gcoo1"]
+render_priority = 0
+shader = ExtResource("1_vp721")
+shader_parameter/Outline_Size = 0.035
+shader_parameter/Base_Color = Color(0.05, 0.05, 0.05, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e8wwj"]
+next_pass = SubResource("ShaderMaterial_gcoo1")
+
+[sub_resource type="SphereMesh" id="SphereMesh_v2nbj"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_e8wwj")
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_v2nbj")
+script = ExtResource("2_xgdfq")

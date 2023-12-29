@@ -1,6 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://bjs7yiga2gmrc"]
+[gd_scene load_steps=5 format=3 uid="uid://bjs7yiga2gmrc"]
 
-[ext_resource type="Shader" uid="uid://c416qb40v5ily" path="res://Shaders/Voronoi.tres" id="1_s54qe"]
+[ext_resource type="Shader" uid="uid://c416qb40v5ily" path="res://Shaders/VoronoiWater.tres" id="1_s54qe"]
 [ext_resource type="Texture2D" uid="uid://v1mjmosbpa1j" path="res://Textures/FlowMap.png" id="2_3ibuy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v2oxu"]
@@ -9,16 +9,19 @@ shader = ExtResource("1_s54qe")
 shader_parameter/Water_Color = Color(0.00392157, 0.521569, 0.854902, 0.854902)
 shader_parameter/Dark_Foam_Color = Color(0, 0.396078, 0.654902, 0.839216)
 shader_parameter/Foam_Thickness = 0.02
-shader_parameter/Flow_Strength = 0.5
-shader_parameter/Flow_Map_Tiling = 0.1
-shader_parameter/Flow_Map_Speed = 0.5
+shader_parameter/Flow_Strength = 0.1
+shader_parameter/Flow_Map_Tiling = 0.3
+shader_parameter/Flow_Map_Speed = 0.015
 shader_parameter/Cell_Density = 1.0
 shader_parameter/Light_Foam_Color = Color(1, 1, 1, 0.839216)
 shader_parameter/Foam_Offset = Vector2(0.55, -0.4)
 shader_parameter/Flow_Map = ExtResource("2_3ibuy")
 
+[sub_resource type="PlaneMesh" id="PlaneMesh_lf8n2"]
+
 [node name="Voronoi" type="Node3D"]
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0, 0)
 material_override = SubResource("ShaderMaterial_v2oxu")
-size = Vector3(5, 0.1, 5)
+mesh = SubResource("PlaneMesh_lf8n2")

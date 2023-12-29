@@ -1,0 +1,32 @@
+[gd_scene load_steps=8 format=3 uid="uid://b2jfxlgi006t5"]
+
+[ext_resource type="Shader" uid="uid://vpco51x2n02c" path="res://Shaders/VoronoiLava.tres" id="1_q48d5"]
+[ext_resource type="Script" path="res://Scripts/Dissolve.gd" id="2_5b6c0"]
+[ext_resource type="Texture2D" uid="uid://v1mjmosbpa1j" path="res://Textures/FlowMap.png" id="2_btf8u"]
+[ext_resource type="Texture2D" uid="uid://c50cua2052tup" path="res://Textures/Lava004_2K_Emission.png" id="3_fof6j"]
+[ext_resource type="Texture2D" uid="uid://delk1x2qlehfy" path="res://Textures/Rock028_2K_Color.png" id="4_nqfq5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ymfdp"]
+render_priority = 0
+shader = ExtResource("1_q48d5")
+shader_parameter/Rock_Color = Color(0.309804, 0.227451, 0.172549, 1)
+shader_parameter/Thickness = 0.03
+shader_parameter/Thickness_Falloff = 0.05
+shader_parameter/Flow_Strength = 0.02
+shader_parameter/Flow_Map_Tiling = 0.2
+shader_parameter/Flow_Speed = 0.005
+shader_parameter/Island_Density = 5.0
+shader_parameter/Lava_Color = Color(3, 1, 1, 1)
+shader_parameter/Rock_Texture = ExtResource("4_nqfq5")
+shader_parameter/Flow_Map = ExtResource("2_btf8u")
+shader_parameter/Lava_Texture = ExtResource("3_fof6j")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_h0amt"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_ymfdp")
+mesh = SubResource("PlaneMesh_h0amt")
+script = ExtResource("2_5b6c0")
