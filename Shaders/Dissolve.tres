@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=25 format=3 uid="uid://ba5d5a00abtol"]
+[gd_resource type="VisualShader" load_steps=27 format=3 uid="uid://ba5d5a00abtol"]
 
 [ext_resource type="Script" path="res://Scripts/CustomNodes/PerlinNoise3DNode.gd" id="1_1r1m7"]
 
@@ -30,10 +30,6 @@ default_value = 0.05
 [sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_vkx03"]
 operator = 2
 
-[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_7en46"]
-expanded_output_ports = [0]
-input_name = "color"
-
 [sub_resource type="VisualShaderNodeCustom" id="VisualShaderNodeCustom_htf0a"]
 output_port_for_preview = 0
 default_input_values = [2, 1.0]
@@ -58,6 +54,13 @@ operator = 3
 parameter_name = "Height_Scale"
 default_value_enabled = true
 default_value = 0.5
+
+[sub_resource type="VisualShaderNodeVaryingGetter" id="VisualShaderNodeVaryingGetter_lxm6i"]
+expanded_output_ports = [0]
+varying_name = "WorldPos"
+varying_type = 4
+
+[sub_resource type="VisualShaderNodeVectorDecompose" id="VisualShaderNodeVectorDecompose_y2dpl"]
 
 [sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_njvwl"]
 parameter_name = "Noise_Size"
@@ -87,9 +90,17 @@ input_name = "model_matrix"
 [sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_klaiq"]
 input_name = "vertex"
 
+[sub_resource type="VisualShaderNodeVaryingSetter" id="VisualShaderNodeVaryingSetter_igxk4"]
+varying_name = "WorldPos"
+varying_type = 4
+
 [resource]
 code = "shader_type spatial;
 render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_lambert, specular_schlick_ggx;
+
+
+// Varyings
+varying vec3 WorldPos;
 
 uniform vec4 Base_Color : source_color = vec4(1.000000, 1.000000, 1.000000, 1.000000);
 uniform float Dissolve_Amount = 0.5;
@@ -205,8 +216,8 @@ void vertex() {
 	vec3 n_out3p0 = (n_out2p0 * vec4(n_out4p0, 1.0)).xyz;
 
 
-// Output:0
-	COLOR.rgb = n_out3p0;
+// VaryingSetter:5
+	WorldPos = n_out3p0;
 
 
 }
@@ -220,9 +231,8 @@ void fragment() {
 	float n_out17p0 = Dissolve_Amount;
 
 
-// Input:21
-	vec4 n_out21p0 = COLOR;
-	float n_out21p2 = n_out21p0.g;
+// VaryingGetter:35
+	vec3 n_out35p0 = WorldPos;
 
 
 // FloatConstant:25
@@ -236,8 +246,14 @@ void fragment() {
 	float n_out23p0;
 // PerlinNoise3D:23
 	{
-		n_out23p0 = cnoise(vec3((vec3(n_out21p0.xyz) + vec3(n_out25p0)) * n_out5p0 + n_out25p0)) * 0.5 + 0.5;
+		n_out23p0 = cnoise(vec3((n_out35p0 + vec3(n_out25p0)) * n_out5p0 + n_out25p0)) * 0.5 + 0.5;
 	}
+
+
+// VectorDecompose:36
+	float n_out36p0 = n_out35p0.x;
+	float n_out36p1 = n_out35p0.y;
+	float n_out36p2 = n_out35p0.z;
 
 
 // FloatParameter:30
@@ -245,7 +261,7 @@ void fragment() {
 
 
 // FloatOp:29
-	float n_out29p0 = n_out21p2 / n_out30p0;
+	float n_out29p0 = n_out36p1 / n_out30p0;
 
 
 // FloatOp:26
@@ -305,14 +321,19 @@ void fragment() {
 
 }
 "
+graph_offset = Vector2(-1896.69, 181.476)
 modes/cull = 2
+varyings/WorldPos = "0,4"
 nodes/vertex/2/node = SubResource("VisualShaderNodeInput_f7ses")
 nodes/vertex/2/position = Vector2(-300, 240)
 nodes/vertex/3/node = SubResource("VisualShaderNodeTransformVecMult_citl8")
 nodes/vertex/3/position = Vector2(2.74011, 333.686)
 nodes/vertex/4/node = SubResource("VisualShaderNodeInput_klaiq")
 nodes/vertex/4/position = Vector2(-380, 400)
-nodes/vertex/connections = PackedInt32Array(2, 0, 3, 0, 4, 0, 3, 1, 3, 0, 0, 6)
+nodes/vertex/5/node = SubResource("VisualShaderNodeVaryingSetter_igxk4")
+nodes/vertex/5/position = Vector2(400, 460)
+nodes/vertex/connections = PackedInt32Array(2, 0, 3, 0, 4, 0, 3, 1, 3, 0, 5, 0)
+nodes/fragment/0/position = Vector2(400, 140)
 nodes/fragment/5/node = SubResource("VisualShaderNodeFloatParameter_njvwl")
 nodes/fragment/5/position = Vector2(-2320, 980)
 nodes/fragment/6/node = SubResource("VisualShaderNodeStep_c33eu")
@@ -337,12 +358,10 @@ nodes/fragment/19/node = SubResource("VisualShaderNodeFloatParameter_koisb")
 nodes/fragment/19/position = Vector2(-1600, 1460)
 nodes/fragment/20/node = SubResource("VisualShaderNodeVectorOp_vkx03")
 nodes/fragment/20/position = Vector2(-40, 540)
-nodes/fragment/21/node = SubResource("VisualShaderNodeInput_7en46")
-nodes/fragment/21/position = Vector2(-2820, 640)
 nodes/fragment/23/node = SubResource("VisualShaderNodeCustom_htf0a")
 nodes/fragment/23/position = Vector2(-1820, 380)
 nodes/fragment/25/node = SubResource("VisualShaderNodeFloatConstant_ey2cw")
-nodes/fragment/25/position = Vector2(-2180, 580)
+nodes/fragment/25/position = Vector2(-2180, 540)
 nodes/fragment/26/node = SubResource("VisualShaderNodeFloatOp_m2wjw")
 nodes/fragment/26/position = Vector2(-1520, 380)
 nodes/fragment/27/node = SubResource("VisualShaderNodeFloatParameter_1ukti")
@@ -353,4 +372,8 @@ nodes/fragment/29/node = SubResource("VisualShaderNodeFloatOp_dqlix")
 nodes/fragment/29/position = Vector2(-2200, 680)
 nodes/fragment/30/node = SubResource("VisualShaderNodeFloatParameter_k6oys")
 nodes/fragment/30/position = Vector2(-2780, 820)
-nodes/fragment/connections = PackedInt32Array(7, 0, 8, 0, 6, 0, 9, 0, 8, 0, 9, 1, 15, 0, 0, 0, 6, 0, 0, 1, 16, 0, 0, 19, 17, 0, 6, 0, 17, 0, 18, 0, 19, 0, 18, 1, 18, 0, 7, 0, 10, 0, 20, 1, 9, 0, 20, 0, 20, 0, 0, 5, 5, 0, 23, 2, 25, 0, 23, 1, 25, 0, 23, 3, 21, 0, 23, 0, 23, 0, 26, 0, 26, 0, 28, 0, 27, 0, 28, 1, 28, 0, 6, 1, 28, 0, 7, 1, 21, 2, 29, 0, 30, 0, 29, 1, 29, 0, 26, 1)
+nodes/fragment/35/node = SubResource("VisualShaderNodeVaryingGetter_lxm6i")
+nodes/fragment/35/position = Vector2(-2940, 320)
+nodes/fragment/36/node = SubResource("VisualShaderNodeVectorDecompose_y2dpl")
+nodes/fragment/36/position = Vector2(-2580, 460)
+nodes/fragment/connections = PackedInt32Array(7, 0, 8, 0, 6, 0, 9, 0, 8, 0, 9, 1, 16, 0, 0, 19, 17, 0, 6, 0, 17, 0, 18, 0, 19, 0, 18, 1, 18, 0, 7, 0, 10, 0, 20, 1, 9, 0, 20, 0, 20, 0, 0, 5, 5, 0, 23, 2, 25, 0, 23, 1, 25, 0, 23, 3, 23, 0, 26, 0, 26, 0, 28, 0, 27, 0, 28, 1, 28, 0, 6, 1, 28, 0, 7, 1, 30, 0, 29, 1, 29, 0, 26, 1, 35, 0, 23, 0, 35, 0, 36, 0, 36, 1, 29, 0, 15, 0, 0, 0, 6, 0, 0, 1)

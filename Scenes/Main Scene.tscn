@@ -1,8 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://dr0nuwsj7ykm1"]
+[gd_scene load_steps=10 format=3 uid="uid://dr0nuwsj7ykm1"]
 
 [ext_resource type="PackedScene" uid="uid://feii01ocsqh5" path="res://Scenes/ShaderDemos/Dissolve.tscn" id="1_b3l4d"]
 [ext_resource type="PackedScene" uid="uid://bgajkufo5nxjf" path="res://Scenes/ShaderDemos/Hologram.tscn" id="2_mke3f"]
 [ext_resource type="PackedScene" uid="uid://bc5sluvi4yi7o" path="res://Scenes/ShaderDemos/HullOutlines.tscn" id="3_n073v"]
+[ext_resource type="PackedScene" uid="uid://bjs7yiga2gmrc" path="res://Scenes/ShaderDemos/VoronoiWater.tscn" id="4_ncmvi"]
+[ext_resource type="PackedScene" uid="uid://b2jfxlgi006t5" path="res://Scenes/ShaderDemos/VoronoiLava.tscn" id="5_42abi"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_t2ve0"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_yn65r"]
+sky_material = SubResource("ProceduralSkyMaterial_t2ve0")
+
+[sub_resource type="Environment" id="Environment_l2cnd"]
+background_mode = 2
+sky = SubResource("Sky_yn65r")
+tonemap_mode = 2
+glow_enabled = true
 
 [sub_resource type="Environment" id="Environment_5raeu"]
 glow_enabled = true
@@ -10,7 +25,11 @@ glow_bloom = 1.0
 
 [node name="Node3D" type="Node3D"]
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_l2cnd")
+
 [node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 6, 1, 2)
 environment = SubResource("Environment_5raeu")
 
 [node name="Dissolve" parent="." instance=ExtResource("1_b3l4d")]
@@ -21,3 +40,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -1)
 
 [node name="HullOutlines" parent="." instance=ExtResource("3_n073v")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -1)
+
+[node name="Voronoi" parent="." instance=ExtResource("4_ncmvi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -3)
+
+[node name="Node3D" parent="." instance=ExtResource("5_42abi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -3)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866025, -0.25, -0.433013, 0.433013, -0.0580128, 0.899519, -0.25, -0.966506, 0.0580126, 0, 0, 0)
