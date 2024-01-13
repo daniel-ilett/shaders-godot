@@ -7,12 +7,11 @@
 render_priority = 0
 shader = ExtResource("1_dqir1")
 shader_parameter/Base_Color = Color(0, 0, 0, 1)
-shader_parameter/Dissolve_Amount = 0.35
-shader_parameter/Noise_Size = 17.0
-shader_parameter/Height_Scale = 0.2
-shader_parameter/Noise_Height_Level = 0.33
-shader_parameter/Dissolve_Thickness = 0.2
-shader_parameter/Edge_Color = Color(23.077, 0.168, 30.769, 1)
+shader_parameter/Dissolve_Height = 0.1
+shader_parameter/Noise_Scale = 0.095
+shader_parameter/Noise_Size = 20.0
+shader_parameter/Glow_Thickness = 0.03
+shader_parameter/Edge_Color = Color(0.01, 2, 10, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_v2nbj"]
 

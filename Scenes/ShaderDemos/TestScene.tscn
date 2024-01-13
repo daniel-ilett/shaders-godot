@@ -1,12 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://b2tu7cww2yojy"]
+[gd_scene load_steps=3 format=3 uid="uid://b2tu7cww2yojy"]
 
 [ext_resource type="Material" uid="uid://djrbeme0bgbtf" path="res://Materials/OrganicCells.material" id="1_a32vo"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_dyv8c"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_uswuw"]
-
-[sub_resource type="SphereMesh" id="SphereMesh_d7ipv"]
 
 [node name="TestScene" type="Node3D"]
 
@@ -14,7 +10,3 @@
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0, 0)
 material_override = ExtResource("1_a32vo")
 mesh = SubResource("PlaneMesh_dyv8c")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-material_override = SubResource("ShaderMaterial_uswuw")
-mesh = SubResource("SphereMesh_d7ipv")

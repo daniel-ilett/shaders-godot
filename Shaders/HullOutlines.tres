@@ -1,10 +1,4 @@
-[gd_resource type="VisualShader" load_steps=10 format=3 uid="uid://dhtbcld73mfmk"]
-
-[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_dtsxr"]
-input_name = "front_facing"
-
-[sub_resource type="VisualShaderNodeSwitch" id="VisualShaderNodeSwitch_kleit"]
-default_input_values = [0, false, 1, 0.0, 2, 1.0]
+[gd_resource type="VisualShader" load_steps=8 format=3 uid="uid://dhtbcld73mfmk"]
 
 [sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_nl6gi"]
 parameter_name = "Base_Color"
@@ -70,20 +64,8 @@ void fragment() {
 	vec4 n_out4p0 = Base_Color;
 
 
-// Input:2
-	bool n_out2p0 = FRONT_FACING;
-
-
-	float n_out3p0;
-// Switch:3
-	float n_in3p1 = 0.00000;
-	float n_in3p2 = 1.00000;
-	n_out3p0 = mix(n_in3p2, n_in3p1, float(n_out2p0));
-
-
 // Output:0
 	ALBEDO = vec3(n_out4p0.xyz);
-	ALPHA = n_out3p0;
 
 
 }
@@ -112,13 +94,9 @@ nodes/vertex/5/position = Vector2(-200, 320)
 nodes/vertex/10/node = SubResource("VisualShaderNodeVectorOp_xrq62")
 nodes/vertex/10/position = Vector2(120, 140)
 nodes/vertex/connections = PackedInt32Array(3, 0, 4, 0, 2, 0, 4, 1, 4, 0, 10, 0, 5, 0, 10, 1, 10, 0, 0, 0)
-nodes/fragment/2/node = SubResource("VisualShaderNodeInput_dtsxr")
-nodes/fragment/2/position = Vector2(-480, 400)
-nodes/fragment/3/node = SubResource("VisualShaderNodeSwitch_kleit")
-nodes/fragment/3/position = Vector2(-140, 380)
 nodes/fragment/4/node = SubResource("VisualShaderNodeColorParameter_nl6gi")
-nodes/fragment/4/position = Vector2(-480, 180)
-nodes/fragment/connections = PackedInt32Array(2, 0, 3, 0, 3, 0, 0, 1, 4, 0, 0, 0)
+nodes/fragment/4/position = Vector2(-80, 100)
+nodes/fragment/connections = PackedInt32Array(4, 0, 0, 0)
 nodes/light/2/node = SubResource("VisualShaderNodeFloatConstant_m1cc2")
 nodes/light/2/position = Vector2(60, 180)
 nodes/light/connections = PackedInt32Array(2, 0, 0, 0, 2, 0, 0, 1)

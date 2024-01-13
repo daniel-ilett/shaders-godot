@@ -11,7 +11,7 @@ shader_parameter/Scanline_Scroll_Speed = 1.5
 shader_parameter/Scanline_Scale = 100.0
 shader_parameter/Fresnel_Power = 5.0
 shader_parameter/Fresnel_Color = Color(0, 0, 7.101, 1)
-shader_parameter/Texture2DParameter = ExtResource("2_d66gy")
+shader_parameter/Scanline_Texture = ExtResource("2_d66gy")
 
 [sub_resource type="SphereMesh" id="SphereMesh_xg7eo"]
 

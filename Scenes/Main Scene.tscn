@@ -41,10 +41,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -1)
 [node name="HullOutlines" parent="." instance=ExtResource("3_n073v")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -1)
 
-[node name="Voronoi" parent="." instance=ExtResource("4_ncmvi")]
+[node name="VoronoiWater" parent="." instance=ExtResource("4_ncmvi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -3)
 
-[node name="Node3D" parent="." instance=ExtResource("5_42abi")]
+[node name="VoronoiLava" parent="." instance=ExtResource("5_42abi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -3)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
