@@ -6,11 +6,11 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cn7ys"]
 render_priority = 0
 shader = ExtResource("1_umngf")
-shader_parameter/Scanline_Color = Color(0, 0, 6.509, 0.018)
-shader_parameter/Scanline_Scroll_Speed = 1.5
-shader_parameter/Scanline_Scale = 100.0
-shader_parameter/Fresnel_Power = 5.0
-shader_parameter/Fresnel_Color = Color(0, 0, 7.101, 1)
+shader_parameter/Scanline_Color = Color(0.086, 1.184, 6.509, 0.008)
+shader_parameter/Scanline_Scroll_Speed = 0.5
+shader_parameter/Scanline_Scale = 40.0
+shader_parameter/Fresnel_Power = 1.0
+shader_parameter/Fresnel_Color = Color(1.77647, 0, 0.384314, 0.572549)
 shader_parameter/Scanline_Texture = ExtResource("2_d66gy")
 
 [sub_resource type="SphereMesh" id="SphereMesh_xg7eo"]

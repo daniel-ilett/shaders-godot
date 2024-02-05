@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://bc5sluvi4yi7o"]
+[gd_scene load_steps=5 format=3 uid="uid://bc5sluvi4yi7o"]
 
 [ext_resource type="Shader" uid="uid://dhtbcld73mfmk" path="res://Shaders/HullOutlines.tres" id="1_vp721"]
-[ext_resource type="Script" path="res://Scripts/Dissolve.gd" id="2_xgdfq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gcoo1"]
 render_priority = 0
@@ -20,4 +19,3 @@ next_pass = SubResource("ShaderMaterial_gcoo1")
 material_override = SubResource("StandardMaterial3D_e8wwj")
 lod_bias = 0.001
 mesh = SubResource("SphereMesh_v2nbj")
-script = ExtResource("2_xgdfq")

@@ -29,7 +29,7 @@ glow_bloom = 1.0
 environment = SubResource("Environment_l2cnd")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 6, 1, 2)
+transform = Transform3D(1, 0, 0, 0, 0.914819, 0.403865, 0, -0.403865, 0.914819, 0, 1, 1.32606)
 environment = SubResource("Environment_5raeu")
 
 [node name="Dissolve" parent="." instance=ExtResource("1_b3l4d")]
