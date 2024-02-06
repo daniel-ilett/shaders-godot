@@ -16,7 +16,8 @@ This project was created using Godot 4.2.1.
 
 This project is also part of a tutorial series which can be found in the following places:
 
-- Making Effects with Godot Visual Shaders (coming soon)
+- [Making Effects with Godot Visual Shaders (YouTube)](https://www.youtube.com/watch?v=S1FPSU1sp5E)
+- [Making Effects with Godot Visual Shaders (Article)](https://danielilett.com/2024-02-06-tut8-1-godot-shader-intro/)
 
 ## Authors
 
